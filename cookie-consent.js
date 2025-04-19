@@ -245,42 +245,28 @@ const translations = {
 // Main initialization with enhanced cookie scanning
 document.addEventListener('DOMContentLoaded', function() {
     // First try to get language from dataLayer (from IP detection)
-   // First try to get language from dataLayer (from IP detection)
-let detectedLanguage = 'en';
-if (window.dataLayer && window.dataLayer.length > 0) {
-    const langData = window.dataLayer.find(item => item.language || item.country);
-    if (langData) {
-        if (langData.language) {
-            detectedLanguage = langData.language.toLowerCase().split('-')[0];
-        } else if (langData.country) {
-            // Enhanced country to language mapping
-            const countryToLang = {
-                // European countries
-                'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'MC': 'fr', 'CH': 'de', 
-                'DE': 'de', 'AT': 'de', 'LI': 'de', 'ES': 'es', 'MX': 'es',
-                'AR': 'es', 'CO': 'es', 'PE': 'es', 'VE': 'es', 'CL': 'es',
-                'EC': 'es', 'IT': 'it', 'PT': 'pt', 'BR': 'pt', 'RU': 'ru',
-                'UA': 'ru', 'BY': 'ru', 'KZ': 'ru', 'JP': 'ja', 'CN': 'zh',
-                'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh', 'KR': 'ko',
-                
-                // Add more country mappings as needed
-                // Format: 'COUNTRY_CODE': 'language_code'
-            };
-            detectedLanguage = countryToLang[langData.country] || detectedLanguage;
+    let detectedLanguage = 'en';
+    if (window.dataLayer && window.dataLayer.length > 0) {
+        const langData = window.dataLayer.find(item => item.language || item.country);
+        if (langData) {
+            if (langData.language) {
+                detectedLanguage = langData.language;
+            } else if (langData.country) {
+                const countryToLang = {
+                    'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'CH': 'de', 'DE': 'de', 'AT': 'de',
+                    'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'PE': 'es', 'VE': 'es',
+                    'IT': 'it', 'PT': 'pt', 'BR': 'pt', 'RU': 'ru', 'UA': 'ru', 'BY': 'ru',
+                    'JP': 'ja', 'CN': 'zh', 'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh'
+                };
+                detectedLanguage = countryToLang[langData.country] || detectedLanguage;
+            }
         }
     }
-}
-
-// If still not detected, try to get from browser
-if (!translations[detectedLanguage]) {
-    const browserLang = (navigator.language || 'en').split('-')[0];
-    detectedLanguage = translations[browserLang] ? browserLang : 'en';
-}
-
-// Final fallback to English if still not found
-if (!translations[detectedLanguage]) {
-    detectedLanguage = 'en';
-}
+    
+    // Fallback to browser language
+    if (!translations[detectedLanguage]) {
+        const browserLang = (navigator.language || 'en').split('-')[0];
+        detectedLanguage = translations[browserLang] ? browserLang : 'en';
     }
     
     const detectedCookies = scanAndCategorizeCookies();
@@ -1517,3 +1503,4 @@ function getCookie(name) {
         return continentMap[countryCode] || "Unknown";
     }
 })();
+
