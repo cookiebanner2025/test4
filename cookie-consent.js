@@ -144,136 +144,44 @@ const translations = {
         other: "Otras cookies",
         otherDesc: "Cookies no categorizadas",
         save: "Guardar preferencias"
-    },
-    it: {
-        title: "Rispettiamo la tua privacy",
-        description: "Utilizziamo i cookie per migliorare la tua esperienza, fornire annunci o contenuti personalizzati e analizzare il nostro traffico. Cliccando su \"Accetta tutto\", acconsenti all'uso dei cookie.",
-        privacy: "Privacy Policy",
-        customize: "Personalizza",
-        reject: "Rifiuta tutto",
-        accept: "Accetta tutto",
-        essential: "Cookie essenziali",
-        essentialDesc: "Necessari per il funzionamento",
-        analytics: "Cookie analitici",
-        analyticsDesc: "Analizzano le interazioni",
-        performance: "Cookie prestazioni",
-        performanceDesc: "Migliorano le prestazioni",
-        advertising: "Cookie pubblicitari",
-        advertisingDesc: "Mostrano annunci pertinenti",
-        other: "Altri cookie",
-        otherDesc: "Cookie non categorizzati",
-        save: "Salva preferenze"
-    },
-    pt: {
-        title: "Valorizamos sua privacidade",
-        description: "Usamos cookies para melhorar sua experiência, fornecer anúncios ou conteúdo personalizado e analisar nosso tráfego. Clicando em \"Aceitar Tudo\", você concorda com o uso de cookies.",
-        privacy: "Política de Privacidade",
-        customize: "Personalizar",
-        reject: "Rejeitar Tudo",
-        accept: "Aceitar Tudo",
-        essential: "Cookies Essenciais",
-        essentialDesc: "Necessários para o funcionamento",
-        analytics: "Cookies de Análise",
-        analyticsDesc: "Ajudam a entender interações",
-        performance: "Cookies de Desempenho",
-        performanceDesc: "Melhoram o desempenho",
-        advertising: "Cookies de Publicidade",
-        advertisingDesc: "Exibem anúncios relevantes",
-        other: "Outros Cookies",
-        otherDesc: "Cookies não categorizados",
-        save: "Salvar Preferências"
-    },
-    ru: {
-        title: "Мы ценим вашу конфиденциальность",
-        description: "Мы используем файлы cookie для улучшения вашего опыта, предоставления персонализированной рекламы или контента и анализа нашего трафика. Нажимая «Принять все», вы соглашаетесь на использование файлов cookie.",
-        privacy: "Политика конфиденциальности",
-        customize: "Настроить",
-        reject: "Отклонить все",
-        accept: "Принять все",
-        essential: "Необходимые файлы cookie",
-        essentialDesc: "Необходимы для работы сайта",
-        analytics: "Аналитические файлы cookie",
-        analyticsDesc: "Помогают понять взаимодействия",
-        performance: "Файлы cookie производительности",
-        performanceDesc: "Улучшают производительность",
-        advertising: "Рекламные файлы cookie",
-        advertisingDesc: "Показывают релевантную рекламу",
-        other: "Другие файлы cookie",
-        otherDesc: "Неклассифицированные файлы cookie",
-        save: "Сохранить настройки"
-    },
-    ja: {
-        title: "プライバシーを尊重します",
-        description: "クッキーを使用して、閲覧体験の向上、パーソナライズされた広告やコンテンツの提供、トラフィックの分析を行っています。「すべて許可」をクリックすると、クッキーの使用に同意したことになります。",
-        privacy: "プライバシーポリシー",
-        customize: "カスタマイズ",
-        reject: "すべて拒否",
-        accept: "すべて許可",
-        essential: "必須クッキー",
-        essentialDesc: "ウェブサイトの機能に必要",
-        analytics: "分析クッキー",
-        analyticsDesc: "訪問者の行動を理解するため",
-        performance: "パフォーマンスクッキー",
-        performanceDesc: "ウェブサイトのパフォーマンス向上",
-        advertising: "広告クッキー",
-        advertisingDesc: "関連性の高い広告を表示",
-        other: "その他のクッキー",
-        otherDesc: "未分類のクッキー",
-        save: "設定を保存"
-    },
-    zh: {
-        title: "我们重视您的隐私",
-        description: "我们使用cookies来提升您的浏览体验，提供个性化广告或内容，并分析我们的流量。点击“接受所有”即表示您同意使用cookies。",
-        privacy: "隐私政策",
-        customize: "自定义",
-        reject: "拒绝所有",
-        accept: "接受所有",
-        essential: "必要Cookies",
-        essentialDesc: "网站功能必需",
-        analytics: "分析Cookies",
-        analyticsDesc: "帮助了解访客互动",
-        performance: "性能Cookies",
-        performanceDesc: "提高网站性能",
-        advertising: "广告Cookies",
-        advertisingDesc: "提供相关广告",
-        other: "其他Cookies",
-        otherDesc: "未分类的cookies",
-        save: "保存偏好"
     }
 };
 
 // Main initialization with enhanced cookie scanning
 document.addEventListener('DOMContentLoaded', function() {
-  // First try to get language from dataLayer (from IP detection)
-let detectedLanguage = 'en';
-if (window.dataLayer && window.dataLayer.length > 0) {
-    const langData = window.dataLayer.find(item => item.language || item.country);
-    if (langData) {
-        if (langData.language) {
-            detectedLanguage = langData.language.toLowerCase().split('-')[0];
-        } else if (langData.country) {
-            const countryToLang = {
-                'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'CH': 'de', 'DE': 'de', 'AT': 'de',
-                'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'PE': 'es', 'VE': 'es',
-                'IT': 'it', 'PT': 'pt', 'BR': 'pt', 'RU': 'ru', 'UA': 'ru', 'BY': 'ru',
-                'JP': 'ja', 'CN': 'zh', 'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh'
-            };
-            detectedLanguage = countryToLang[langData.country] || detectedLanguage;
+    // Enhanced language detection with better fallbacks
+    let detectedLanguage = 'en';
+    
+    // First try to get from dataLayer (IP detection)
+    if (window.dataLayer && window.dataLayer.length > 0) {
+        const langData = window.dataLayer.find(item => item.language || item.country);
+        if (langData) {
+            if (langData.language) {
+                detectedLanguage = langData.language.toLowerCase().split('-')[0];
+            } else if (langData.country) {
+                const countryToLang = {
+                    'FR': 'fr', 'BE': 'fr', 'LU': 'fr', 'CH': 'de', 'DE': 'de', 'AT': 'de',
+                    'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'PE': 'es', 'VE': 'es',
+                    'IT': 'it', 'PT': 'pt', 'BR': 'pt', 'RU': 'ru', 'UA': 'ru', 'BY': 'ru',
+                    'JP': 'ja', 'CN': 'zh', 'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh'
+                };
+                detectedLanguage = countryToLang[langData.country] || detectedLanguage;
+            }
         }
     }
-}
-
-// Fallback to browser language
-if (!translations[detectedLanguage]) {
-    const browserLang = (navigator.language || 'en').split('-')[0];
-    detectedLanguage = translations[browserLang] ? browserLang : 'en';
-}
-
-// Final fallback to English if still not found
-if (!translations[detectedLanguage]) {
-    detectedLanguage = 'en';
-}
+    
+    // Fallback to browser language
+    if (!translations[detectedLanguage]) {
+        const browserLang = (navigator.language || 'en').split('-')[0];
+        detectedLanguage = translations[browserLang] ? browserLang : 'en';
     }
+    
+    // Final fallback to English if still not found
+    if (!translations[detectedLanguage]) {
+        detectedLanguage = 'en';
+    }
+    
+    console.log('Detected language:', detectedLanguage); // Debug log
     
     const detectedCookies = scanAndCategorizeCookies();
     if (detectedCookies.uncategorized.length > 0) {
