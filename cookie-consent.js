@@ -1,6 +1,6 @@
 const config = {
     // Domain restriction
-    allowedDomains: ['acres23.co.uk'],
+    allowedDomains: [],
     
     // Privacy policy URL (configurable)
     privacyPolicyUrl: 'https://acres23.co.uk/cookie-policy/', // Add your full privacy policy URL here
